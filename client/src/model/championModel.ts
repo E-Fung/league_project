@@ -1,16 +1,16 @@
-export interface ChampionsModelApi {
-  data: ChampionsModel;
+export interface ApiListChampModel {
+  data: ListChampModel;
 }
 
-export interface ChampionsModel {
+export interface ListChampModel {
   type: Type;
   format: string;
-  version: Version;
-  data: { [key: string]: Datum };
+  version: string;
+  data: { [key: string]: ChampModel };
 }
 
-export interface Datum {
-  version: Version;
+export interface ChampModel {
+  version: string;
   id: string;
   key: string;
   name: string;
@@ -60,8 +60,4 @@ export enum Tag {
   Marksman = 'Marksman',
   Support = 'Support',
   Tank = 'Tank',
-}
-
-export enum Version {
-  The1211 = '12.1.1',
 }

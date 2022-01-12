@@ -1,7 +1,7 @@
-import { ChampionsModelApi } from './../model/championModel';
+import { ApiListChampModel } from './../model/championModel';
 import axios from 'axios';
 
-export const getChampionList = (): Promise<ChampionsModelApi> => {
+export const getChampionList = (): Promise<ApiListChampModel> => {
   return axios.get('http://ddragon.leagueoflegends.com/cdn/12.1.1/data/en_US/champion.json').then((resp: any) => resp);
 };
 
