@@ -1,43 +1,13 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import SearchBar from './components/searchBar/SearchBar';
+import React, { useEffect, useState } from 'react';
 import ChampionCard from './components/championCard/ChampionCard';
 import { getChampionList } from '../service/championService';
-import { ApiListChampModel, ChampModel } from './../model/championModel';
-import { useSearchParams, useLocation } from 'react-router-dom';
-
-const filterTag = 'px-4';
-
-const FilterTags = (): JSX.Element => {
-  return (
-    <>
-      <p className={filterTag}>
-        <button>All</button>
-      </p>
-      <p className={filterTag}>
-        <button>Assassin</button>
-      </p>
-      <p className={filterTag}>
-        <button>Fighters</button>
-      </p>
-      <p className={filterTag}>
-        <button>Mages</button>
-      </p>
-      <p className={filterTag}>
-        <button>Marksmen</button>
-      </p>
-      <p className={filterTag}>
-        <button>Support</button>
-      </p>
-      <p className={filterTag}>
-        <button>Tank</button>
-      </p>
-    </>
-  );
-};
+import { ApiListChampModel, ChampModel, Tag } from './../model/championModel';
+import { useSearchParams } from 'react-router-dom';
+import SearchBar from './components/searchBar/SearchBar';
 
 const Champions = () => {
   const [championList, setChampionList] = useState<ChampModel[]>();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     loadChampionList();
@@ -46,34 +16,30 @@ const Champions = () => {
   const loadChampionList = async (): Promise<void> => {
     let tempChampListRaw: ApiListChampModel = await getChampionList();
     let tempChampArray: ChampModel[] = Object.keys(tempChampListRaw.data.data).map((key) => tempChampListRaw.data.data[key]);
+    console.log(tempChampArray);
     setChampionList(tempChampArray);
   };
 
   return (
     <div className="justify-center">
-      <div className="flex justify-center my-4">
-        <input
-          value={searchParams.get('filter') || ''}
-          onChange={(event) => {
-            let filter = event.target.value;
-            if (filter) {
-              setSearchParams({ filter });
-            } else {
-              setSearchParams({});
-            }
-          }}
-        />
-        <FilterTags />
+      <div className="m-4">
+        <SearchBar />
       </div>
-      <div className="container mx-auto px-20 md:px-60">
-        <div className="flex flex-wrap -mx-1 lg:-mx-4">
+      <div id="champlist__container" className="container mx-auto px-10 md:px-20 lg:px-40">
+        <div className="justify-center flex flex-wrap -mx-1 lg:-mx-4">
           {championList &&
             championList
               .filter((champ) => {
                 let filter = searchParams.get('filter');
                 if (!filter) return true;
-                let name = champ.id.toLowerCase();
+                let name = champ.name.toLowerCase();
                 return name.startsWith(filter.toLowerCase());
+              })
+              .filter((champ) => {
+                let tag: any = searchParams.get('tag');
+                if (tag === Tag.All || !tag) return true;
+                let champTags = champ.tags;
+                return champTags.includes(tag);
               })
               .map((champ) => {
                 return <ChampionCard ChampData={champ} key={champ.id} />;

@@ -1,8 +1,9 @@
-import React, { ReactElement, useState } from 'react';
-import './navbar.css';
+import React, { useState } from 'react';
 import league_icon from '../../assets/league_icon.png';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
+import { createUser, loginUser } from '../../service/user';
+import { userModel } from '../../model/user';
 
 //champions
 //items
@@ -25,6 +26,10 @@ const Menu = (): JSX.Element => {
   );
 };
 
+const Login = (): JSX.Element => {
+  return <div className={navbar__menu__dropdown}>Penis</div>;
+};
+
 const navbar = 'flex px-2 py-4 bg-purple-900 text-white';
 const navbar__links = 'flex flex-1 justify-start';
 const navbar__links__icon = 'mr-4';
@@ -41,7 +46,12 @@ const navbar__menu__dropdown__login = 'flex flex-col justify-end items-center sm
 const navbar__menu__dropdown__login_button = 'flex mx-4';
 
 const Navbar = () => {
-  const [menuOpen, setMenuOpen] = useState(false as boolean);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const [loginOpen, setLoginOpen] = useState<boolean>(false);
+  const [registerOpen, setRegisterOpen] = useState<boolean>(false);
+
+  createUser({ name: 'Eric', password: 'password' });
+  createUser({ name: 'Eric2', password: 'password' });
 
   return (
     <div className={navbar}>
@@ -56,8 +66,12 @@ const Navbar = () => {
         </div>
       </div>
       <div className={navbar__login}>
-        <button className={navbar__login__button}>Sign In</button>
+        <button className={navbar__login__button} onClick={() => setLoginOpen(!loginOpen)}>
+          Sign In
+        </button>
         <button className={navbar__login__button}>Sign Up</button>
+        {loginOpen && <Login />}
+        {registerOpen && <div></div>}
       </div>
       <div className={navbar__menu}>
         {menuOpen ? (

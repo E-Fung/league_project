@@ -60,4 +60,5 @@ export enum Tag {
   Marksman = 'Marksman',
   Support = 'Support',
   Tank = 'Tank',
+  All = 'All',
 }
