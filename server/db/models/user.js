@@ -5,8 +5,6 @@ const bcrypt = require('bcrypt');
 const User = sequelize.define('user', {
   id: {
     type: DataTypes.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
     primaryKey: true,
   },
   name: {
@@ -27,7 +25,11 @@ const User = sequelize.define('user', {
 });
 
 User.prototype.correctPassword = async (password) => {
-  return await bcrypt.compare(password, this.password);
+  return await bcrypt.compare(password, this.password, function (err, res) {
+    if (err) {
+      // handle error
+    }
+  });
 };
 
 const setSaltAndPassword = async (user) => {

@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
-const User = require('./../models/user');
-const sequelize = require('../db');
+const User = require('../db/models/user');
+const sequelize = require('../db/db');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+sequelize.sync({ force: true });
 
 app.post('/users', async (req, res) => {
   try {
@@ -16,7 +18,7 @@ app.post('/users', async (req, res) => {
   }
 });
 
-app.post('/login', async (req, res) => {
+app.post('/login', async (req, res, next) => {
   try {
     const { name, password } = req.body;
     const user = await User.findOne({
@@ -32,13 +34,9 @@ app.post('/login', async (req, res) => {
       res.status(401).json({ error: 'Wrong username and/or password' });
     } else {
       console.log({ error: 'Correct' });
-      res.status(401).json({ error: 'Correct' });
+      res.json({ error: 'Correct' });
     }
   } catch (error) {
-    console.error('Unable to create user', error);
+    next(error);
   }
-});
-
-app.listen(3000, () => {
-  console.log('Server is Running');
 });

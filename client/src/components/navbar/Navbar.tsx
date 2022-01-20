@@ -2,12 +2,9 @@ import React, { useState } from 'react';
 import league_icon from '../../assets/league_icon.png';
 import { RiMenu3Line, RiCloseLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
-import { createUser, loginUser } from '../../service/user';
+import { createUser, loginUser } from '../../service/userService';
+import { createChampion } from '../../service/championService';
 import { userModel } from '../../model/user';
-
-//champions
-//items
-//login
 
 const Menu = (): JSX.Element => {
   return (
@@ -27,7 +24,89 @@ const Menu = (): JSX.Element => {
 };
 
 const Login = (): JSX.Element => {
-  return <div className={navbar__menu__dropdown}>Penis</div>;
+  return (
+    <div className={navbar__menu__dropdown}>
+      <div className="w-full max-w-xs">
+        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="username"
+              type="text"
+              placeholder="Username"
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+            <input
+              className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="password"
+              placeholder="******************"
+            />
+            <p className="text-red-500 text-xs italic">Please choose a password.</p>
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => {
+                let name = (document.getElementById('username') as HTMLInputElement).value;
+                let password = (document.getElementById('password') as HTMLInputElement).value;
+                loginUser({ name: name, password: password });
+              }}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Sign In
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+const SignUp = (): JSX.Element => {
+  return (
+    <div className={navbar__menu__dropdown}>
+      <div className="w-full max-w-xs">
+        <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Username</label>
+            <input
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="usernameSignup"
+              type="text"
+              placeholder="Username"
+            />
+          </div>
+          <div className="mb-6">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Password</label>
+            <input
+              className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+              id="passwordSignup"
+              type="password"
+              placeholder="******************"
+            />
+            <p className="text-red-500 text-xs italic">Please choose a password.</p>
+          </div>
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => {
+                let name = (document.getElementById('usernameSignup') as HTMLInputElement).value;
+                let password = (document.getElementById('passwordSignup') as HTMLInputElement).value;
+                createUser({ name: name, password: password });
+              }}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 const navbar = 'flex px-2 py-4 bg-purple-900 text-white';
@@ -50,9 +129,6 @@ const Navbar = () => {
   const [loginOpen, setLoginOpen] = useState<boolean>(false);
   const [registerOpen, setRegisterOpen] = useState<boolean>(false);
 
-  createUser({ name: 'Eric', password: 'password' });
-  createUser({ name: 'Eric2', password: 'password' });
-
   return (
     <div className={navbar}>
       <div className={navbar__links}>
@@ -69,9 +145,11 @@ const Navbar = () => {
         <button className={navbar__login__button} onClick={() => setLoginOpen(!loginOpen)}>
           Sign In
         </button>
-        <button className={navbar__login__button}>Sign Up</button>
+        <button className={navbar__login__button} onClick={() => createChampion()}>
+          Sign Up
+        </button>
         {loginOpen && <Login />}
-        {registerOpen && <div></div>}
+        {registerOpen && <SignUp />}
       </div>
       <div className={navbar__menu}>
         {menuOpen ? (
@@ -84,6 +162,7 @@ const Navbar = () => {
             <Menu />
             <div className={navbar__menu__dropdown__login}>
               <button className={navbar__menu__dropdown__login_button}>Sign In</button>
+              {loginOpen && <Login />}
               <button className={navbar__menu__dropdown__login_button}>Sign Up</button>
             </div>
           </div>
