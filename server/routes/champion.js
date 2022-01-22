@@ -1,12 +1,25 @@
 const express = require('express');
 const cors = require('cors');
-const Champion = require('../db/models/champion/champion');
-const sequelize = require('../db/db');
+const Champion = require('../models/champion');
+const { sequelize } = require('../models');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+(async () => {
+  console.log(`Checking database connection...`);
+
+  try {
+    await sequelize.authenticate();
+    console.log('Database connection OK!');
+  } catch (error) {
+    console.log('Unable to connect to the database:');
+    console.log(error.message);
+    process.exit(1);
+  }
+})();
+sequelize.drop();
 sequelize.sync({ force: true });
 
 app.post('/champions', async (req, res) => {
