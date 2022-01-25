@@ -10,11 +10,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Spells.init(
     {
-      id: {
-        //good
-        type: DataTypes.STRING,
-        primaryKey: true,
-      },
       cooldownBurn: {
         type: DataTypes.STRING,
       },
@@ -37,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Spells',
+      freezeTableName: true,
       timestamps: false,
     }
   );

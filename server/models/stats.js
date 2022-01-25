@@ -10,74 +10,71 @@ module.exports = (sequelize, DataTypes) => {
   }
   Stats.init(
     {
-      id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-      },
       armor: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       armorperlevel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       attackdamage: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       attackdamageperlevel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       attackrange: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       attackspeed: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       attackspeedperlevel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       crit: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       critperlevel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       hp: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       hpperlevel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       hpregen: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       hpregenperlevel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       movespeed: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       mp: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       mpperlevel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       mpregen: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       mpregenperlevel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       spellblock: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
       spellblockperlevel: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
       },
     },
     {
       sequelize,
       modelName: 'Stats',
+      freezeTableName: true,
       timestamps: false,
     }
   );

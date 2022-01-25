@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Passive.init(
     {
-      id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-      },
       description: {
         type: DataTypes.STRING,
       },
@@ -24,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Passive',
+      freezeTableName: true,
       timestamps: false,
     }
   );

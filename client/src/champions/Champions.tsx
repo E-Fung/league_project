@@ -15,7 +15,7 @@ const Champions = () => {
 
   const loadChampionList = async (): Promise<void> => {
     let tempChampListRaw: ApiListChampModel = await getChampionList();
-    let tempChampArray: ChampModel[] = Object.keys(tempChampListRaw.data.data).map((key) => tempChampListRaw.data.data[key]);
+    let tempChampArray: ChampModel[] = Object.keys(tempChampListRaw.data.data).map((key) => tempChampListRaw.data.data[key]); //transforms the object into array of objects
     console.log(tempChampArray);
     setChampionList(tempChampArray);
   };

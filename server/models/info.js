@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Info.init(
     {
-      id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-      },
       attack: {
         type: DataTypes.STRING,
       },
@@ -30,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Info',
+      freezeTableName: true,
       timestamps: false,
     }
   );

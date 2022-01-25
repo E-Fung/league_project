@@ -4,14 +4,14 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Champion extends Model {
     static associate(models) {
-      Champion.belongsToMany(models.User, { through: 'LikedChampions', as: 'users', foreignKey: 'user_id' });
-      Champion.hasMany(models.Allytips, { foreignKey: 'allytips_id', as: 'allytips' });
-      Champion.hasMany(models.Enemytips, { foreignKey: 'enemytips_id', as: 'enemytips' });
-      Champion.hasOne(models.Info, { foreignKey: 'info_id', as: 'info' });
-      Champion.hasOne(models.Passive, { foreignKey: 'passive_id', as: 'passive' });
-      Champion.hasMany(models.Spells, { foreignKey: 'spells_id', as: 'spells' });
-      Champion.hasOne(models.Stats, { foreignKey: 'stats_id', as: 'stats' });
-      Champion.belongsToMany(models.Tags, { through: 'ChampionTags', as: 'tags', foreignKey: 'tag_id' });
+      Champion.belongsToMany(models.User, { through: 'LikedChampions', as: 'users', foreignKey: 'champion_id' });
+      Champion.hasMany(models.Allytips, { foreignKey: 'champion_id' });
+      Champion.hasMany(models.Enemytips, { foreignKey: 'champion_id', as: 'enemytips' });
+      Champion.hasOne(models.Info, { foreignKey: 'champion_id', as: 'info' });
+      Champion.hasOne(models.Passive, { foreignKey: 'champion_id', as: 'passive' });
+      Champion.hasMany(models.Spells, { foreignKey: 'champion_id', as: 'spells' });
+      Champion.hasOne(models.Stats, { foreignKey: 'champion_id', as: 'stats' });
+      Champion.belongsToMany(models.Tags, { through: 'ChampionTags', foreignKey: 'champion_id' });
     }
   }
   Champion.init(
@@ -33,7 +33,12 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
     },
-    { sequelize, modelName: 'Champion', timestamps: false }
+    {
+      sequelize,
+      modelName: 'Champion',
+      timestamps: false,
+      freezeTableName: true,
+    }
   );
   return Champion;
 };

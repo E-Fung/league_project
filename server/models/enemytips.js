@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
   }
   Enemytips.init(
     {
-      id: {
-        type: DataTypes.STRING,
-        primaryKey: true,
-      },
       tip: {
         type: DataTypes.STRING,
       },
@@ -21,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Enemytips',
+      freezeTableName: true,
       timestamps: false,
     }
   );
