@@ -1,9 +1,8 @@
-const Allytips = require('../models').Allytips;
+const Spells = require('../models').Spells;
 
 module.exports = {
   getByChampion(req, res) {
-    return Allytips.findAll({
-      attributes: ['tip'],
+    return Spells.findAll({
       where: {
         champion_id: req.body.champion_id,
       },
@@ -11,7 +10,7 @@ module.exports = {
       .then((tips) => {
         if (!tips) {
           return res.status(404).send({
-            message: 'Ally Tips Not Found',
+            message: 'Spells Not Found',
           });
         }
         return res.status(200).send(tips);

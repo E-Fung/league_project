@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   Allytips.init(
     {
       tip: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
       },
     },
     {

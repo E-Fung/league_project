@@ -2,9 +2,9 @@ import { ApiListChampModel } from './../model/championModel';
 import axios from 'axios';
 
 export const createChampion = async () => {
-  let pp = await axios.get('https://ddragon.leagueoflegends.com/cdn/12.2.1/data/en_US/champion/Aatrox.json');
-  console.log(pp);
-  return axios.post('http://localhost:5000/champion', pp.data.data.Aatrox);
+  let pp = await axios.post('http://localhost:5000/tags', { champion_id: 'Aatrox' });
+  console.log(pp.data);
+  // return axios.post('http://localhost:5000/allytips', pp.data.data.Aatrox);
 };
 
 export const getChampionList = (): Promise<ApiListChampModel> => {

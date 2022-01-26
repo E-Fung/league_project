@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   Spells.init(
     {
+      id: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+      },
       cooldownBurn: {
         type: DataTypes.STRING,
       },
@@ -20,13 +24,13 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(2000),
       },
       resource: {
         type: DataTypes.STRING,
       },
       tooltip: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(2000),
       },
     },
     {
